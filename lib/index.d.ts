@@ -1,7 +1,10 @@
+interface GrapQlResponseType {
+    data: any | undefined;
+    errors: Error[];
+}
 interface ApiResponse<T> {
-    ok: boolean;
-    error: Error | undefined;
-    response: T | undefined;
+    errors: Error[];
+    data: T | undefined;
 }
 interface ConfigType {
     authorizerURL: string;
@@ -241,4 +244,4 @@ declare class Authorizer {
     private okResponse;
 }
 
-export { ApiResponse, AuthToken, AuthorizeInput, AuthorizeResponse, Authorizer, ConfigType, ForgotPasswordInput, GenericResponse, GetTokenInput, GetTokenResponse, GraphqlQueryInput, Headers, IsValidJWTQueryInput, LoginInput, MagicLinkLoginInput, MetaData, OAuthProviders, ResendOtpInput, ResendVerifyEmailInput, ResetPasswordInput, ResponseTypes, RevokeTokenInput, SessionQueryInput, SignupInput, UpdateProfileInput, User, ValidJWTResponse, ValidateJWTTokenInput, ValidateJWTTokenResponse, ValidateSessionInput, ValidateSessionResponse, VerifyEmailInput, VerifyOtpInput };
+export { ApiResponse, AuthToken, AuthorizeInput, AuthorizeResponse, Authorizer, ConfigType, ForgotPasswordInput, GenericResponse, GetTokenInput, GetTokenResponse, GrapQlResponseType, GraphqlQueryInput, Headers, IsValidJWTQueryInput, LoginInput, MagicLinkLoginInput, MetaData, OAuthProviders, ResendOtpInput, ResendVerifyEmailInput, ResetPasswordInput, ResponseTypes, RevokeTokenInput, SessionQueryInput, SignupInput, UpdateProfileInput, User, ValidJWTResponse, ValidateJWTTokenInput, ValidateJWTTokenResponse, ValidateSessionInput, ValidateSessionResponse, VerifyEmailInput, VerifyOtpInput };
