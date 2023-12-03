@@ -42,6 +42,10 @@ interface AuthToken {
     user?: User;
     should_show_email_otp_screen?: boolean;
     should_show_mobile_otp_screen?: boolean;
+    should_show_totp_screen?: boolean;
+    authenticator_scanner_image?: string;
+    authenticator_secret?: string;
+    authenticator_recovery_codes?: string[];
 }
 interface GenericResponse {
     message: string;
@@ -94,6 +98,7 @@ interface VerifyOtpInput {
     phone_number?: string;
     otp: string;
     state?: string;
+    is_totp?: boolean;
 }
 interface ResendOtpInput {
     email?: string;
@@ -114,6 +119,7 @@ interface MetaData {
     is_apple_login_enabled: boolean;
     is_twitter_login_enabled: boolean;
     is_microsoft_login_enabled: boolean;
+    is_twitch_login_enabled: boolean;
     is_email_verification_enabled: boolean;
     is_basic_authentication_enabled: boolean;
     is_magic_link_login_enabled: boolean;
@@ -162,7 +168,10 @@ declare enum OAuthProviders {
     Github = "github",
     Google = "google",
     Facebook = "facebook",
-    LinkedIn = "linkedin"
+    LinkedIn = "linkedin",
+    Twitter = "twitter",
+    Microsoft = "microsoft",
+    Twitch = "twitch"
 }
 declare enum ResponseTypes {
     Code = "code",
