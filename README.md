@@ -7,6 +7,14 @@ It supports:
 - [CommonJS(cjs)](https://flaviocopes.com/commonjs/) build for NodeJS version that don't support ES Modules
 - [ESM (ES Modules)](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/) build for modern javascript standard, i.e. ES Modules
 
+# Migration Guide from 1.x -> 2.x
+
+`2.x` version of `@authorizerdev/authorizer-js` has a uniform response structure that will help your applications to get right error codes and success response. Methods here have `{data, errors}` as response objects for methods of this library.
+
+For `1.x` version of this library you can get only data in response and error would be thrown so you had to handle that in catch.
+
+---
+
 All the above versions require `Authorizer` instance to be instantiated and used. Instance constructor requires an object with the following keys
 
 | Key             | Description                                                                  |
@@ -18,7 +26,7 @@ All the above versions require `Authorizer` instance to be instantiated and used
 
 ```js
 const authRef = new Authorizer({
-  authorizerURL: "https://app.herokuapp.com",
+  authorizerURL: 'https://app.herokuapp.com',
   redirectURL: window.location.origin,
 });
 ```
@@ -38,24 +46,24 @@ const authRef = new Authorizer({
   const authorizerRef = new authorizerdev.Authorizer({
     authorizerURL: `AUTHORIZER_URL`,
     redirectURL: window.location.origin,
-    clientID: "YOUR_CLIENT_ID", // can be obtained from authorizer dashboard
+    clientID: 'YOUR_CLIENT_ID', // can be obtained from authorizer dashboard
   });
 
   // use the button selector as per your application
-  const logoutBtn = document.getElementById("logout");
-  logoutBtn.addEventListener("click", async function () {
+  const logoutBtn = document.getElementById('logout');
+  logoutBtn.addEventListener('click', async function () {
     await authorizerRef.logout();
-    window.location.href = "/";
+    window.location.href = '/';
   });
 
   async function onLoad() {
-    const res = await authorizerRef.authorize({
-      response_type: "code",
+    const { data, errors } = await authorizerRef.authorize({
+      response_type: 'code',
       use_refresh_token: false,
     });
-    if (res && res.access_token) {
+    if (data && data.access_token) {
       // get user profile using the access token
-      const user = await authorizerRef.getProfile({
+      const { data: user, errors } = await authorizerRef.getProfile({
         Authorization: `Bearer ${res.access_token}`,
       });
 
@@ -80,17 +88,17 @@ yarn add @authorizerdev/authoirzer-js
 - Step 2: Import and initialize the authorizer instance
 
 ```js
-const { Authorizer } = require("@authorizerdev/authoirzer-js");
+const { Authorizer } = require('@authorizerdev/authoirzer-js');
 
 const authRef = new Authorizer({
-  authorizerURL: "https://app.heroku.com",
-  redirectURL: "http://app.heroku.com/app",
+  authorizerURL: 'https://app.heroku.com',
+  redirectURL: 'http://app.heroku.com/app',
 });
 
 async function main() {
   await authRef.login({
-    email: "foo@bar.com",
-    password: "test",
+    email: 'foo@bar.com',
+    password: 'test',
   });
 }
 ```
@@ -108,17 +116,17 @@ yarn add @authorizerdev/authorizer-js
 - Step 2: Import and initialize the authorizer instance
 
 ```js
-import { Authorizer } from "@authorizerdev/authorizer-js";
+import { Authorizer } from '@authorizerdev/authorizer-js';
 
 const authRef = new Authorizer({
-  authorizerURL: "https://app.heroku.com",
-  redirectURL: "http://app.heroku.com/app",
+  authorizerURL: 'https://app.heroku.com',
+  redirectURL: 'http://app.heroku.com/app',
 });
 
 async function main() {
   await authRef.login({
-    email: "foo@bar.com",
-    password: "test",
+    email: 'foo@bar.com',
+    password: 'test',
   });
 }
 ```
